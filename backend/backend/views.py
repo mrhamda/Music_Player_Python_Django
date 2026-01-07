@@ -24,10 +24,6 @@ def index(request):
 
 def register(request):
 
-    # Password validation regex:
-    # - at least 8 characters
-    # - at least one uppercase letter
-    # - at least one digit
 
     if request.method == "POST":
         try:
@@ -256,7 +252,7 @@ def create_song(request):
 
 def get_song(request):
     if request.method == "GET":
-        # Use .GET for query parameters (e.g., /api/get-song/?id=5)
+       
         song_id = request.GET.get("id")
         if not song_id:
             return JsonResponse({"error": "Missing song ID."}, status=400)
@@ -294,14 +290,14 @@ def get_user_songs(request):
             for song in songs:
                 duration = None
                 try:
-                    # Use mutagen to open the audio file by its path
+                    
                     audio_file_path = song.audio.path  # get file path on disk
                     audio = mutagen.File(audio_file_path)
                     if audio and audio.info:
-                        # duration in seconds (float)
+                        
                         duration = audio.info.length
                 except Exception as e:
-                    # Could not read duration, log or ignore
+                    
                     print(f"Error getting duration for song {song.id}: {e}")
 
                 songs_data.append(
@@ -345,22 +341,22 @@ def update_song(request):
     except Song.DoesNotExist:
         return JsonResponse({"error": "Song not found."}, status=404)
 
-    # Parse visibility to boolean
+    
     visibility_bool = visibility.lower() == "true" if visibility else False
 
-    # Delete old image if a new one is provided
+    
     if img_file:
         old_img_path = song.img.path if song.img else None
         song.img = img_file
         if old_img_path and os.path.isfile(old_img_path):
             os.remove(old_img_path)
 
-    # Update other fields
+    
     song.name = song_name
     song.visibility = visibility_bool
     song.save()
 
-    # Send notifications if visibility is True
+    
     if visibility_bool:
         followers = song.owner.followers.all()
         for follower in followers:
@@ -1010,7 +1006,7 @@ def get_all_playlists(request):
                         song_obj = Song.objects.get(id=song_id)
                         song["image"] = song_obj.img.url if song_obj.img else None
                         song["owner"] = song_obj.owner.name
-                        # ✅ added this line
+                        
                         song["audio"] = song_obj.audio.url if song_obj.audio else None
                     except Song.DoesNotExist:
                         song["image"] = song.get("img")
@@ -1204,10 +1200,7 @@ def get_playlist(request):
         "owner": playlist.owner.id,
         "name": playlist.name,
         "image": playlist.img.url if playlist.img else None,
-        "visibility": playlist.visibility,
-    }
-
-    # Serialize all songs related to this playlist
+        "visibility": playlist.visibility
     songs_data = []
     for song in playlist.songs.all():
         songs_data.append(
@@ -1242,7 +1235,7 @@ def add_artist_as_playlist(request):
         artist = get_object_or_404(User, id=artist_id)
         user = get_object_or_404(User, id=user_id)
 
-        # Create or fetch playlist
+        
         created_playlist, created = Playlist.objects.get_or_create(
             owner=artist,
             name=artist.name,
@@ -1270,7 +1263,7 @@ def add_artist_as_playlist(request):
             user.playlists.add(created_playlist)
             message = "Playlist created"
 
-        # ✅ Build the response data with the required structure
+        # Build the response data with the required structure
         playlist_data = {
             "id": created_playlist.id,
             "img": created_playlist.img.url if created_playlist.img else "",
@@ -1496,14 +1489,14 @@ def add_recently_played(request):
         # Delete any existing entry
         RecentlyPlayed.objects.filter(user=user, song=song).delete()
 
-        # Create new (most recent)
+        # Create new most recent
         RecentlyPlayed.objects.create(user=user, song=song)
 
-        # Keep only 10 most recent
+        
         recent_entries = RecentlyPlayed.objects.filter(
             user=user).order_by('-created_at')
         if recent_entries.count() > 10:
-            # Skip first 10, delete the rest
+            
             for old_entry in recent_entries[10:]:
                 old_entry.delete()
 
