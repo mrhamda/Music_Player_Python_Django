@@ -6,22 +6,18 @@ import { useProjectContext } from "../context/ProjectContext";
 export default function HomeShow() {
   const recentlyPlayedRef = useRef<HTMLDivElement>(null);
   const recentlyLikedRef = useRef<HTMLDivElement>(null);
-  const peopleFollowingRef = useRef<HTMLDivElement>(null); // new ref
+  const peopleFollowingRef = useRef<HTMLDivElement>(null); 
 
-  // Recently Played arrows
   const [, setShowLeftRP] = useState(false);
   const [, setShowRightRP] = useState(true);
 
-  // Recently Liked arrows
   const [, setShowLeftRL] = useState(false);
   const [, setShowRightRL] = useState(true);
 
-  // People Following arrows (new)
   const [, setShowLeftPF] = useState(false);
   const [, setShowRightPF] = useState(true);
 
-  // Responsive item width and count
-  const [itemWidth, setItemWidth] = useState(140 + 16); // 140px + 16px gap
+  const [itemWidth, setItemWidth] = useState(140 + 16);
   const [itemsToShow, setItemsToShow] = useState(3);
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -251,18 +247,17 @@ export default function HomeShow() {
     const maxScrollLeft = el.scrollWidth - el.clientWidth;
 
     setLeft(scrollLeft > 0);
-    setRight(scrollLeft < maxScrollLeft - 1); // small tolerance for float rounding
+    setRight(scrollLeft < maxScrollLeft - 1); 
   };
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       updateArrows(recentlyPlayedRef, setShowLeftRP, setShowRightRP);
-    }, 100); // 100ms delay
+    }, 100); 
 
     return () => clearTimeout(timeout);
   }, []);
 
-  // Effect for Recently Played
   useEffect(() => {
     const rp = recentlyPlayedRef.current;
     if (rp) {
@@ -274,7 +269,6 @@ export default function HomeShow() {
     }
   }, [itemWidth, itemsToShow]);
 
-  // Effect for Recently Liked
   useEffect(() => {
     const rl = recentlyLikedRef.current;
     if (rl) {
@@ -286,7 +280,6 @@ export default function HomeShow() {
     }
   }, [itemWidth, itemsToShow]);
 
-  // Effect for People Following (new)
   useEffect(() => {
     const pf = peopleFollowingRef.current;
     if (pf) {
@@ -321,7 +314,7 @@ export default function HomeShow() {
   //     return resJson;
   //   } catch (e) {
   //     console.error("Error fetching user:", e);
-  //     return null; // or handle it however you like
+  //     return null; 
   //   }
   // }
 
@@ -399,7 +392,6 @@ export default function HomeShow() {
 
         {searchQuery.trim() !== "" ? (
           <div className="search-results space-y-8 px-4 max-w-4xl mx-auto">
-            {/* Users */}
             <section>
               <h2 className="text-xl font-semibold text-white mb-3">Users</h2>
               {filteredUsers.length === 0 ? (
@@ -438,7 +430,6 @@ export default function HomeShow() {
               )}
             </section>
 
-            {/* Playlists */}
             <section>
               <h2 className="text-xl font-semibold text-white mb-3">
                 Playlists
@@ -497,7 +488,6 @@ export default function HomeShow() {
               )}
             </section>
 
-            {/* Songs */}
             <section>
               <h2 className="text-xl font-semibold text-white mb-3">Songs</h2>
               {filteredSongs.length === 0 ? (
@@ -545,7 +535,6 @@ export default function HomeShow() {
         ) : (
           <>
             <div>
-              {/* Recently Played */}
               {recentlyPlayed && recentlyPlayed.length > 0 && (
                 <section className="w-full mb-8 relative">
                   <h2 className="text-xl font-semibold text-white mb-3 px-4 text-center">
@@ -624,7 +613,6 @@ export default function HomeShow() {
                 </section>
               )}
 
-              {/* Recently Liked */}
               {recentlyLiked.length > 0 && (
                 <section className="w-full mb-8 relative">
                   <h2 className="text-xl font-semibold text-white mb-3 px-4 text-center">
@@ -714,7 +702,6 @@ export default function HomeShow() {
                 </section>
               )}
 
-              {/* People Following (New) */}
               {following.length > 0 && (
                 <section className="w-full mb-8 relative">
                   <h2 className="text-xl font-semibold text-white mb-3 px-4 text-center">
