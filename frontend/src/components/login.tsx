@@ -59,12 +59,11 @@ export function Login() {
       'input[name="password"]'
     );
 
-    // Wait for browser to autofill
     setTimeout(() => {
       if (emailInput && emailInput.value) setEmail(emailInput.value);
       if (passwordInput && passwordInput.value)
         setPassword(passwordInput.value);
-    }, 100); // Small delay to let autofill happen
+    }, 100); 
   }, []);
 
   return (
