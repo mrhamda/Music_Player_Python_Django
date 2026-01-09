@@ -87,14 +87,12 @@ export default function MakePlaylist() {
       }}
       className="h-[100vh] dark:bg-gray-700 p-4 py-25 px-10 "
     >
-      {/* Playlist Header */}
       <form
         className="flex justify-center"
         onSubmit={CreatePlaylist}
         encType="multipart/form-data"
       >
         <div className="flex flex-col gap-6 mb-6 px-4 sm:px-6 w-full max-w-md bg-gray-900 p-6 rounded-xl shadow-lg text-white font-sans">
-          {/* Image upload */}
           <div className="flex flex-col items-center gap-3">
             <label className="text-sm font-medium tracking-wide text-gray-300">
               Playlist Image
@@ -127,7 +125,6 @@ export default function MakePlaylist() {
             )}
           </div>
 
-          {/* Playlist name */}
           <div className="w-full">
             <label className="block text-sm font-medium mb-1 text-gray-300">
               Playlist Name
@@ -142,7 +139,6 @@ export default function MakePlaylist() {
             />
           </div>
 
-          {/* Visibility toggle */}
           <div className="w-full flex items-center justify-between">
             <label className="text-sm font-medium text-gray-300">
               Visibility
