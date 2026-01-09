@@ -40,19 +40,15 @@ export function Navbar() {
   return (
     <nav className="border-b border-gray-700 bg-gray-900 fixed w-full z-50 top-0">
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between relative">
-        {/* Left: Logo */}
         <a
           href="https://flowbite.com/"
           className="flex items-center space-x-3 rtl:space-x-reverse z-10"
         >
-          {/* <span className="text-2xl font-semibold whitespace-nowrap text-white">
             ER
           </span> */}
         </a>
 
-        {/* Center: Desktop Navigation */}
         <div>
-          {/* Left corner arrows, side by side */}
 
           {false && (
             <div className="absolute left-2 top-1/2 -translate-y-1/2 flex flex-row space-x-4 z-50">
@@ -81,11 +77,8 @@ export function Navbar() {
             </div>
           )}
 
-          {/* Center content */}
           <div>
-            {/* Left corner arrows, horizontally aligned and vertically centered */}
-
-            {/* Centered home icon, vertically centered */}
+          
             <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 md:block">
               <ul className="flex space-x-4 md:space-x-8 font-medium text-white">
                 <li>
@@ -108,7 +101,6 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Right: Icons and Hamburger */}
         <div className="flex items-center space-x-3 rtl:space-x-reverse gap-2 relative z-10 ml-10">
           <button
             type="button"
@@ -127,7 +119,6 @@ export function Navbar() {
             )}
           </button>
 
-          {/* Profile button */}
           <button
             type="button"
             className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -147,7 +138,6 @@ export function Navbar() {
           </button>
         </div>
 
-        {/* Profile dropdown */}
         {isProfileStats && (
           <div
             className="z-50 absolute top-full right-4 mt-2 w-48 text-base list-none divide-y divide-gray-100 rounded-lg shadow-lg bg-gray-800 "
