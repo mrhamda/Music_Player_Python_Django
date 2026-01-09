@@ -94,7 +94,6 @@ export default function EditProfile() {
           onSubmit={updateUser}
           encType="multipart/form-data"
         >
-          {/* Avatar upload */}
           <div className="flex flex-col items-center gap-3">
             <label className="text-sm font-medium tracking-wide text-gray-300">
               Avatar
@@ -128,7 +127,6 @@ export default function EditProfile() {
             )}
           </div>
 
-          {/* Username */}
           <div className="w-full">
             <label className="block text-sm font-medium mb-1 text-gray-300">
               Username
@@ -155,7 +153,6 @@ export default function EditProfile() {
             </textarea>
           </div>
 
-          {/* Password */}
           <div className="w-full">
             <label className="block text-sm font-medium mb-1 text-gray-300">
               Password (optional)
@@ -170,7 +167,6 @@ export default function EditProfile() {
             />
           </div>
 
-          {/* Confirm Password */}
           <div className="w-full">
             <label className="block text-sm font-medium mb-1 text-gray-300">
               Confirm Password
@@ -189,7 +185,6 @@ export default function EditProfile() {
             {err}
           </p>
 
-          {/* Buttons */}
           <div className="flex justify-between">
             <button
               className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded shadow-md transition-colors duration-300 cursor-pointer"
