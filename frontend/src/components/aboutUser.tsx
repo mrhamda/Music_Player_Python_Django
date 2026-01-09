@@ -12,7 +12,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useProjectContext } from "../context/ProjectContext";
 
-// Mock variables
 
 export default function ProfileWithTabs() {
   const [activeTab, setActiveTab] = useState("about");
