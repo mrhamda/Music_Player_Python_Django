@@ -12,10 +12,8 @@ import { useProjectContext } from "../context/ProjectContext";
 export default function Notfications() {
   const [alertV, setAlert] = useState("");
 
-  // State for the playlist image dropdown (new)
   const [, setOpenPlaylistMenu] = useState(false);
 
-  // States for songs dropdown
   const [openMenuIndex, setOpenMenuIndex] = useState<number | null>(null);
   const [openNestedIndex, setOpenNestedIndex] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -245,7 +243,6 @@ export default function Notfications() {
           </div>
         </div>
       )}
-      {/* Playlist Header */}
       <div className="flex flex-col items-center mb-6 px-2 sm:px-0 relative">
         <div className="flex items-center justify-center gap-3">
           <h2 className="text-xl sm:text-2xl font-bold text-white text-center truncate max-w-full">
@@ -254,9 +251,7 @@ export default function Notfications() {
         </div>
       </div>
 
-      {/* Search bar */}
 
-      {/* Song List */}
       {notfications !== null &&
       Array.isArray(notfications) &&
       notfications.length > 0 ? (
@@ -270,12 +265,10 @@ export default function Notfications() {
                 key={index}
                 className="bg-gray-900 rounded-lg p-5 mb-5 shadow-lg border border-gray-800 relative hover:shadow-xl transition-shadow duration-300"
               >
-                {/* Title on its own row */}
                 <p className="text-white font-bold text-xl mb-4">
                   {_note.title}
                 </p>
 
-                {/* Row with play button + image + song name + ellipsis */}
                 <div className="flex items-center gap-5 max-w-full truncate">
                   {_note.song !== null &&
                     (musicPlaying?.id === _note.song.id ? (
@@ -325,7 +318,6 @@ export default function Notfications() {
                   />
 
                   <div className="flex flex-col min-w-0 relative">
-                    {/* Song name with ellipsis */}
                     <p
                       className="font-semibold text-white text-lg truncate pr-8 max-w-[14rem]"
                       style={{
@@ -339,7 +331,6 @@ export default function Notfications() {
                         : _note.playlist.name}
                     </p>
 
-                    {/* Button positioned separately */}
                     <button
                       onClick={() => {
                         if (_note.song !== null) {
@@ -359,7 +350,6 @@ export default function Notfications() {
                       <FontAwesomeIcon icon={faEllipsisH} />
                     </button>
 
-                    {/* Duration below */}
                     <p className="text-gray-400 font-mono text-sm mt-1 truncate">
                       {_note.song !== null
                         ? formatTimeFromSecToMin(_note.song.duration)
@@ -374,7 +364,6 @@ export default function Notfications() {
                   </div>
                 </div>
 
-                {/* Artist name and days ago in a right aligned row below */}
                 <div className="flex justify-end items-center gap-3 text-sm text-gray-400 mt-5 select-none truncate">
                   <img
                     className="rounded-full w-6 h-6 object-cover border-2 border-gray-700"
@@ -400,7 +389,6 @@ export default function Notfications() {
                   </p>
                 </div>
 
-                {/* Dropdown menu */}
                 {openMenuIndex === index && (
                   <div
                     id={`dropdown-${index}`}
