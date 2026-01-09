@@ -85,13 +85,11 @@ export default function MakeSong() {
       }}
       className="h-[100vh] dark:bg-gray-700 p-4 py-25 px-10 "
     >
-      {/* Playlist Header */}
       <div className="flex justify-center">
         <form
           onSubmit={createSong}
           className="flex flex-col gap-6 mb-6 px-4 sm:px-6 w-full max-w-md bg-gray-900 p-6 rounded-xl shadow-lg text-white font-sans"
         >
-          {/* Image upload */}
           <div className="flex flex-col items-center gap-3">
             <label className="text-sm font-medium tracking-wide text-gray-300">
               Song Image
@@ -124,7 +122,6 @@ export default function MakeSong() {
             )}
           </div>
 
-          {/* Audio upload */}
           <div className="flex flex-col items-center gap-3 w-full">
             <label className="text-sm font-medium tracking-wide text-gray-300">
               Song Audio (MP3)
@@ -165,7 +162,6 @@ export default function MakeSong() {
             )}
           </div>
 
-          {/* Playlist name */}
           <div className="w-full">
             <label className="block text-sm font-medium mb-1 text-gray-300">
               Song Name
@@ -184,7 +180,6 @@ export default function MakeSong() {
             {err}
           </p>
 
-          {/* Visibility toggle */}
           <div className="w-full flex items-center justify-between">
             <label className="text-sm font-medium text-gray-300">
               Visibility
