@@ -123,7 +123,6 @@ def logout_view(request):
 
 def update_view(request):
     if request.method == "POST":
-        # If simulating PUT:
         if request.POST.get("_method") == "PUT":
             try:
                 user = request.user
@@ -291,7 +290,7 @@ def get_user_songs(request):
                 duration = None
                 try:
                     
-                    audio_file_path = song.audio.path  # get file path on disk
+                    audio_file_path = song.audio.path  
                     audio = mutagen.File(audio_file_path)
                     if audio and audio.info:
                         
@@ -309,7 +308,7 @@ def get_user_songs(request):
                         "visibility": song.visibility,
                         "image": song.img.url if song.img else None,
                         "audio": song.audio.url if song.audio else None,
-                        "duration": duration,  # add duration here
+                        "duration": duration,  
                     }
                 )
 
@@ -414,7 +413,6 @@ def create_playlist(request):
             if not playlistName or not imgFile:
                 return JsonResponse({"error": "Missing fields."}, status=400)
 
-            # Prevent user from creating a playlist with the same name and image as their own artist profile
             if playlistName == user.name or imgFile.name == user.avatar.name:
                 return JsonResponse(
                     {
@@ -517,7 +515,7 @@ def update_playlist(request):
 
             try:
                 playlistModel = Playlist.objects.get(id=playlistID)
-                owner = playlistModel.owner  # Get owner from playlist
+                owner = playlistModel.owner 
 
                 if not name:
                     return JsonResponse({"error": "Playlist name is required"}, status=400)
@@ -533,7 +531,7 @@ def update_playlist(request):
                     for follower in followers:
                         Notification.objects.create(
                             owner=follower,
-                            image=playlistModel.img,  # Use playlistModel.img here
+                            image=playlistModel.img,  
                             title=f"{owner.name} has released playlist: {name}",
                             is_read=False,
                             playlist=playlistModel,
@@ -730,14 +728,11 @@ def get_user_favorites(request):
             for song in songs:
                 duration = None
                 try:
-                    # Use mutagen to open the audio file by its path
-                    audio_file_path = song.audio.path  # get file path on disk
+                    audio_file_path = song.audio.path  
                     audio = mutagen.File(audio_file_path)
                     if audio and audio.info:
-                        # duration in seconds (float)
                         duration = audio.info.length
                 except Exception as e:
-                    # Could not read duration, log or ignore
                     print(f"Error getting duration for song {song.id}: {e}")
 
                 songs_data.append(
@@ -748,7 +743,7 @@ def get_user_favorites(request):
                         "visibility": song.visibility,
                         "img": song.img.url if song.img else None,
                         "audio": song.audio.url if song.audio else None,
-                        "duration": duration,  # add duration here
+                        "duration": duration, 
                         "owner_name": song.owner.name,
                         'owner_id': song.owner.id
                     }
@@ -1040,7 +1035,7 @@ def add_existing_playlist(request):
             playlist = Playlist.objects.get(id=playlist_id)
             user = User.objects.get(id=user_id)
 
-            user.playlists.add(playlist)  #
+            user.playlists.add(playlist)  
             return JsonResponse({"message": "Playlist added successfully"})
         except Playlist.DoesNotExist:
             return JsonResponse({"error": "Playlist not found"}, status=404)
@@ -1099,7 +1094,6 @@ def load_start_music(request):
     try:
         user = User.objects.get(id=user_id)
 
-        # Handle ManyToManyField with songs added
         playing_list = (
             [
                 {
@@ -1126,7 +1120,6 @@ def load_start_music(request):
             else []
         )
 
-        # Handle playing_music safely
         if user.playing_music:
             playing_music = {
                 "id": user.playing_music.id,
@@ -1174,8 +1167,7 @@ def set_playing_list(request):
         user = User.objects.get(id=user_id)
         playlist = Playlist.objects.get(id=playlist_id)
 
-        # If playing_list is ManyToManyField
-        # Replace previous, or use .add() if you want to keep existing
+
         user.playing_list.set([playlist])
 
         user.save()
@@ -1245,12 +1237,10 @@ def add_artist_as_playlist(request):
             },
         )
 
-        # Add artist's songs to playlist
         artist_songs = Song.objects.filter(owner=artist, visibility=True)
 
         created_playlist.songs.set(artist_songs)
 
-        # Update if already exists
         if not created:
             created_playlist.img = artist.avatar
             created_playlist.visibility = False
@@ -1263,7 +1253,6 @@ def add_artist_as_playlist(request):
             user.playlists.add(created_playlist)
             message = "Playlist created"
 
-        # Build the response data with the required structure
         playlist_data = {
             "id": created_playlist.id,
             "img": created_playlist.img.url if created_playlist.img else "",
@@ -1278,7 +1267,6 @@ def add_artist_as_playlist(request):
                     "owner": song.owner.username,
                     "owner_id": song.owner.id,
                     "audio": song.audio.url if song.audio else "",
-                    # Add more fields if needed
                 }
                 for song in created_playlist.songs.all()
             ],
@@ -1326,7 +1314,6 @@ def does_it_have_artist(request):
     user = get_object_or_404(User, id=user_id)
     artist = get_object_or_404(User, id=artist_id)
 
-    # Debug print all playlists for the user
     print(f"User {user.id} playlists:")
     for pl in user.playlists.all():
         print(
@@ -1337,23 +1324,19 @@ def does_it_have_artist(request):
     playlist = None
 
     if user.id == artist.id:
-        # Try to find by exact or case-insensitive name first
         playlist = user.playlists.filter(name__iexact=artist.name).first()
 
         if not playlist:
-            # If no match by name, try filtering by img field carefully
-            # Assuming img and avatar are FileField/ImageField, compare by file name
+           
             avatar_name = getattr(artist.avatar, 'name', None)
             if avatar_name:
                 playlist = user.playlists.filter(img=avatar_name).first()
     else:
-        # When user and artist differ, try both filters
         avatar_name = getattr(artist.avatar, 'name', None)
         if avatar_name:
             playlist = user.playlists.filter(
                 img=avatar_name, name=artist.name).first()
         else:
-            # fallback if avatar_name is not available
             playlist = user.playlists.filter(name=artist.name).first()
 
     if playlist:
@@ -1453,7 +1436,6 @@ def get_user_notifications(request):
                                 'owner': song.owner.name,
                                 'owner_id': song.owner.id,
                             }
-                            # if it's a queryset
                             for song in n.playlist.songs.all()
                         ]
                     }
@@ -1486,10 +1468,8 @@ def add_recently_played(request):
         user = User.objects.get(id=user_id)
         song = Song.objects.get(id=song_id)
 
-        # Delete any existing entry
         RecentlyPlayed.objects.filter(user=user, song=song).delete()
 
-        # Create new most recent
         RecentlyPlayed.objects.create(user=user, song=song)
 
         
@@ -1519,7 +1499,6 @@ def return_recently_played(request):
     except User.DoesNotExist:
         return JsonResponse({'error': 'User not found!'}, status=404)
 
-    # Get recent songs ordered by created_at DESC
     recent_entries = RecentlyPlayed.objects.filter(
         user=user).select_related('song').order_by('-created_at')
 
