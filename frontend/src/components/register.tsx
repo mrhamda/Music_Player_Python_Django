@@ -62,7 +62,6 @@ export function Register() {
       'input[name="cpassword"]'
     );
 
-    // Wait for browser to autofill
     setTimeout(() => {
       if (emailInput && emailInput.value) setEmail(emailInput.value);
 
@@ -72,7 +71,7 @@ export function Register() {
       if (cPassword && cPassword.value) setCpassword(cPassword.value);
 
       if (nameInput && nameInput.value) setName(nameInput.value);
-    }, 100); // Small delay to let autofill happen
+    }, 100);
   }, []);
 
   return (
