@@ -127,10 +127,8 @@ export default function Playlist() {
     setPlaylistsCleaned(Object.values(playlists));
   }, [playlists]);
 
-  // State for the playlist image dropdown (new)
   const [openPlaylistMenu, setOpenPlaylistMenu] = useState(false);
 
-  // States for songs dropdown
   const [openMenuIndex, setOpenMenuIndex] = useState<number | null>(null);
   const [openNestedIndex, setOpenNestedIndex] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -336,10 +334,8 @@ export default function Playlist() {
             >
               <ul className="py-1 text-gray-700 dark:text-gray-200">
                 {Number(playlistData.owner) === user!.id ? (
-                  // Check if playlist is "artist playlist"
                   playlistData.image === user!.avatar &&
                   playlistData.name === user!.name ? (
-                    // Artist playlist: only show Remove
                     <li role="none">
                       <a
                         href="#"
