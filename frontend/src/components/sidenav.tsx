@@ -96,12 +96,10 @@ export function Sidenav() {
     left: number;
   } | null>(null);
 
-  // State to store current sidebar and button widths
   const [sidebarWidth, setSidebarWidth] = useState(100);
   const [buttonSize, setButtonSize] = useState(48);
   const [imgSize, setImgSize] = useState(64);
 
-  // Detect window width and adjust sizes
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth <= 1025) {
@@ -263,7 +261,6 @@ export function Sidenav() {
             <div className="py-3"></div>
           </div>
 
-          {/* Floating Popout outside scroll */}
           {hoveredIndex !== null && hoverPosition && (
             <div
               style={{
