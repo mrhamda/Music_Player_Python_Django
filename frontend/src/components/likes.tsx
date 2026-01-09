@@ -264,7 +264,6 @@ export default function Likes() {
           </div>
         )}
       </div>
-      {/* Search bar */}
       <div className="mb-4 px-2 sm:px-0">
         <input
           type="text"
@@ -275,7 +274,6 @@ export default function Likes() {
         />
       </div>
 
-      {/* Song List */}
       <div ref={dropdownWrapperRef}>
         <ul className="space-y-4 relative flex flex-col px-2 sm:px-0">
           {totalTime <= 0 && (
