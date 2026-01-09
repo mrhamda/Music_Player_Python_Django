@@ -278,11 +278,8 @@ export function AudioPlayer() {
             onEnded={nextTrack}
           />
 
-          {/* Container */}
           <div className="flex flex-col items-center gap-4 md:gap-6 md:items-center">
-            {/* Combine Image + Song Info + Controls side by side */}
             <div className="flex items-center gap-6 cursor-pointer">
-              {/* Profile Image + Song Info */}
               <div className="flex items-center gap-3">
                 <img
                   src={musicPlaying.image}
@@ -327,7 +324,6 @@ export function AudioPlayer() {
                 </div>
               </div>
 
-              {/* Controls (play, prev, next) */}
               <div className="flex justify-center items-center gap-5 text-lg ">
                 <button onClick={prevTrack}>
                   <FontAwesomeIcon icon={faBackward} />
@@ -346,12 +342,9 @@ export function AudioPlayer() {
               </div>
             </div>
 
-            {/* Progress bar */}
             <div className="flex items-center gap-4 w-full max-w-lg mt-4">
-              {/* Current time */}
               <span className="text-xs w-10">{formatTime(currentTime)}</span>
 
-              {/* Playing progress slider */}
               <input
                 type="range"
                 className="flex-1 h-1 accent-green-500"
@@ -362,13 +355,11 @@ export function AudioPlayer() {
                 onChange={handleSeek}
               />
 
-              {/* Duration */}
               <span className="text-xs w-10 text-right">
                 {formatTime(duration)}
               </span>
             </div>
 
-            {/* Volume control on separate line */}
             <div className="flex items-center gap-2 w-full max-w-lg mt-2">
               <FontAwesomeIcon icon={faVolumeUp} />
               <input
